@@ -97,10 +97,6 @@ h3 {
   display: flex;
 }
 
-.swiper {
-  width: 600px;
-  height: 300px;
-}
 
 main {
   padding: 20px;
@@ -130,13 +126,58 @@ main h2 {
 
 section {
   position: relative;
-  height: 450px;
-  padding: 0 10px;
+  padding: 40px 10px;
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  background-color: #aaf3f3;
+  align-items: stretch;
+  
+  /* Ocean + grey + white tones */
+  background: linear-gradient(-45deg, 
+    #a1ffef,      /* light aqua */
+    #cfd8dc,      /* light grey */
+    #64d6d3,      /* tropical teal */
+    #eceff1,      /* whitish grey */
+    #2bb3c0,      /* deeper teal */
+    #b0bec5,      /* medium grey */
+    #146478       /* deep ocean blue */
+  );
+  
+  background-size: 500% 500%;
+  animation: oceanFlow 14s ease infinite;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Shimmer animation */
+@keyframes oceanFlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Glossy sunlight overlay */
+section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent 60%);
+  animation: lightMove 10s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes lightMove {
+  0%   { transform: translate(0,0); }
+  100% { transform: translate(20px, 20px); }
+}
+
+
+.swiper-slide {
+  display: flex;
+  height: auto; /* Allow height to adapt to content */
 }
 
 .card {
@@ -146,7 +187,8 @@ section {
   margin: 0px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column; /* Let content stack naturally */
 }
 
 .card .card-content {
@@ -154,18 +196,19 @@ section {
   flex-direction: column;
   align-items: center;
   padding: 30px;
-  position: relative;
+  flex: 1; /* Fill available vertical space */
 }
 
-section .card .image img {
-  height: 100%;
+.card .image img {
   width: 100%;
+  max-width: 200px;
+  height: auto;
   object-fit: cover;
   border-radius: 50%;
   border: 3px solid #fff;
 }
 
-.card .name-profession {
+.name-profession {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -175,12 +218,15 @@ section .card .image img {
 .name-profession .name {
   font-size: 20px;
   font-weight: 600;
+  text-align: center;
 }
 
 .name-profession .profession {
   font-size: 15px;
   font-weight: 500;
+  text-align: center;
 }
+
 
 .swiper-pagination {
   position: absolute;
@@ -204,7 +250,11 @@ section .card .image img {
 .swiper-button-prev:hover {
   opacity: 1;
   color: #7d2ae8;
-}
+} 
+
+
+
+
 
 /* Responsive media query code for small screens */
 @media (max-width: 768px) {
@@ -275,7 +325,7 @@ section .card .image img {
 .location {
   background-color: #aaf3f3;
   padding: 20px;
-  display: inline-block;
+  display: block;
   text-align: center;
   height: fit-content;
   width: 100%;
@@ -286,6 +336,14 @@ section .card .image img {
 
 .map {
   position: relative;
+  width: 100%; /* Ensure it fills parent */
+  max-width: 100%; /* Prevent overflow */
+  overflow: hidden;
+}
+.map iframe {
+  width: 100%; /* Full width responsive */
+  height: 450px; /* Fixed height or make this responsive too */
+  border: 0;
 }
 
 footer {
